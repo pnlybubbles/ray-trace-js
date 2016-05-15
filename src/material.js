@@ -1,9 +1,10 @@
 class Material {
-  constructor(ambientColor, diffuseColor, specularColor, specularPower) {
-    this.ambColor = ambientColor;
-    this.difColor = diffuseColor;
-    this.spcColor = specularColor;
-    this.spcPower = specularPower;
+  constructor(color, reflection, refraction, diffuse, emmisive) {
+    this.color = color;
+    this.reflection = reflection;
+    this.refraction = refraction;
+    this.diffuse = diffuse;
+    this.emmisive = emmisive;
   }
 }
 

@@ -8,7 +8,7 @@ class Renderer {
   }
 
   setPixel(x, y, r, g, b, a) {
-    const index = (x + y * this.x) * 4;
+    const index = (x + (this.y - y) * this.x) * 4;
     this.cData.data[index + 0] = r * 255;
     this.cData.data[index + 1] = g * 255;
     this.cData.data[index + 2] = b * 255;
