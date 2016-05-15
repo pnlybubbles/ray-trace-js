@@ -1,8 +1,9 @@
 class Intersection {
-  constructor(hitPosition, normal, color) {
-    this.hitPos = hitPosition;
+  constructor(hitPosition, t, normal, object) {
+    this.p = hitPosition;
+    this.t = t;
     this.normal = normal;
-    this.color = color;
+    this.obj = object;
   }
 }
 

@@ -1,9 +1,9 @@
 class Material {
-  constructor(color, reflection, refraction, diffuse, emmisive) {
+  constructor(color, diffuse, reflection, refraction, emmisive) {
     this.color = color;
+    this.diffuse = diffuse;
     this.reflection = reflection;
     this.refraction = refraction;
-    this.diffuse = diffuse;
     this.emmisive = emmisive;
   }
 }

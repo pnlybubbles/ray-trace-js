@@ -17,12 +17,13 @@ class CSphere extends CObject {
     if (d < 0) {
       return null;
     }
-    const hitPos = vec3.add(
+    const t = (-vac - Math.sqrt(d)) / aclen;
+    const p = vec3.add(
       vec3.create(),
       ray.o,
-      vec3.scale(vec3.create(), ray.v, (-vac - Math.sqrt(d)) / aclen));
-    const normal = vec3.normalize(vec3.create(), vec3.sub(vec3.create(), hitPos, this.pos));
-    return new Intersection(hitPos, normal, vec3.fromValues(1, 1, 1));
+      vec3.scale(vec3.create(), ray.v, t));
+    const normal = vec3.normalize(vec3.create(), vec3.sub(vec3.create(), p, this.pos));
+    return new Intersection(p, t, normal, this);
   }
 }
 

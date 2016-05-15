@@ -14,7 +14,6 @@ class CTriangle extends CObject {
         vec3.create(),
         vec3.sub(vec3.create(), this.pos1, this.pos0),
         vec3.sub(vec3.create(), this.pos2, this.pos0)));
-    console.log(this.n);
   }
 
   isAcross(ray) {
@@ -48,7 +47,7 @@ class CTriangle extends CObject {
     if (vec3.dot(c2, this.n) < 0) {
       return null;
     }
-    return new Intersection(p, this.n, vec3.fromValues(1, 1, 1));
+    return new Intersection(p, t, this.n, this);
   }
 }
 
