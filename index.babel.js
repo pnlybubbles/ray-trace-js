@@ -11,7 +11,7 @@ const rayTracer = new RayTrace(renderer.x, renderer.y);
 const redMaterial = new Material(vec3.fromValues(1, 0, 0), 1, 0, 0, 0);
 const blueMaterial = new Material(vec3.fromValues(0, 0, 1), 1, 0, 0, 0);
 const whiteMaterial = new Material(vec3.fromValues(1, 1, 1), 1, 0, 0, 0);
-const emmisiveMaterial = new Material(vec3.fromValues(1, 0.95, 0.7), 0, 0, 0, 1);
+const emmisiveMaterial = new Material(vec3.fromValues(1, 0.90, 0.5), 0, 0, 0, 1);
 // rayTracer.add(new CSphere(vec3.fromValues(0, 2, 0), 1, emmisiveMaterial));
 const objects = [
   {
@@ -61,6 +61,14 @@ const objects = [
   {
     type: CTriangle,
     args: [[1, 4.99, -4], [-1, 4.99, -4], [1, 4.99, -5], emmisiveMaterial],
+  },
+  {
+    type: CSphere,
+    args: [[-2, -3.5, -6], 1.5, whiteMaterial],
+  },
+  {
+    type: CSphere,
+    args: [[2, -3.5, -3], 1.5, whiteMaterial],
   },
 ];
 objects.forEach((o) => {

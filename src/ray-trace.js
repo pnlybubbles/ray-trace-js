@@ -130,8 +130,8 @@ class RayTrace {
         vec2.create(),
         vec2.scale(vec2.create(), vec2.fromValues(x, y), 2), r), 1 / Math.min(this.x, this.y));
     const ray = new Ray();
-    ray.o = vec3.fromValues(0, 0, 5);
-    ray.v = vec3.normalize(vec3.create(), vec3.fromValues(p[0], p[1], -1));
+    ray.o = vec3.fromValues(0, 0, 15);
+    ray.v = vec3.normalize(vec3.create(), vec3.fromValues(p[0], p[1], -3));
     return this.getColor(ray, 0);
   }
 
