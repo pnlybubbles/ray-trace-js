@@ -9,7 +9,7 @@ class RayTrace {
     this._data = [];
     this.data = [];
     this.count = 0;
-    this.depthMax = 1;
+    this.depthMax = 3;
     this.bgColor = vec3.fromValues(0, 0, 0);
   }
 
@@ -62,8 +62,9 @@ class RayTrace {
         Math.sin(theta) * Math.cos(phi),
         Math.sin(theta) * Math.sin(phi),
         Math.cos(theta));
-      const vn = vec3.dot(v, interact.normal);
+      let vn = vec3.dot(v, interact.normal);
       if (vn < 0) {
+        vn = -vn;
         v = vec3.scale(vec3.create(), v, -1);
       }
       const newRay = new Ray();
@@ -74,9 +75,9 @@ class RayTrace {
         color = vec3.fromValues(0, 0, 0);
       }
       colors.diffuse = vec3.fromValues(
-        color[0] * interact.obj.mat.color[0] * vn,
-        color[1] * interact.obj.mat.color[1] * vn,
-        color[2] * interact.obj.mat.color[2] * vn);
+        color[0] * interact.obj.mat.color[0] * vn * 0.5 * Math.PI,
+        color[1] * interact.obj.mat.color[1] * vn * 0.5 * Math.PI,
+        color[2] * interact.obj.mat.color[2] * vn * 0.5 * Math.PI);
     } else {
       colors.diffuse = vec3.fromValues(0, 0, 0);
     }
@@ -161,10 +162,23 @@ class RayTrace {
 
   getData() {
     const data = [];
+    let sumPower = 0;
     for (let x = 0; x < this.x; x++) {
       for (let y = 0; y < this.y; y++) {
         data[y] = data[y] || [];
         data[y][x] = vec3.scale(vec3.create(), this._data[y][x], 1 / this.count);
+        const power = data[y][x][0] + data[y][x][1] + data[y][x][2];
+        sumPower += power;
+      }
+    }
+    const avePower = sumPower / (this.x * this.y);
+    const toneMappingFuncExp = Math.log(0.5) / Math.log(avePower);
+    function toneMappingFunc(x) { // 0.0 <= x <= 1.0
+      return Math.pow(x, toneMappingFuncExp);
+    }
+    for (let x = 0; x < this.x; x++) {
+      for (let y = 0; y < this.y; y++) {
+        data[y][x] = vec3.fromValues(toneMappingFunc(data[y][x][0]), toneMappingFunc(data[y][x][1]), toneMappingFunc(data[y][x][2]));
       }
     }
     return data;
