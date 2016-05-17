@@ -160,27 +160,31 @@ class RayTrace {
     }
   }
 
+  clamp(vec) {
+    return vec3.fromValues(Math.min(Math.max(vec[0], 0), 1), Math.min(Math.max(vec[1], 0), 1), Math.min(Math.max(vec[2], 0), 1));
+  }
+
   getData() {
     const data = [];
-    let sumPower = 0;
+    // let sumPower = 0;
     for (let x = 0; x < this.x; x++) {
       for (let y = 0; y < this.y; y++) {
         data[y] = data[y] || [];
-        data[y][x] = vec3.scale(vec3.create(), this._data[y][x], 1 / this.count);
-        const power = data[y][x][0] + data[y][x][1] + data[y][x][2];
-        sumPower += power;
+        data[y][x] = this.clamp(vec3.scale(vec3.create(), this._data[y][x], 1 / this.count));
+        // const power = data[y][x][0] + data[y][x][1] + data[y][x][2];
+        // sumPower += power;
       }
     }
-    const avePower = sumPower / (this.x * this.y);
-    const toneMappingFuncExp = Math.log(0.5) / Math.log(avePower);
-    function toneMappingFunc(x) { // 0.0 <= x <= 1.0
-      return Math.pow(x, toneMappingFuncExp);
-    }
-    for (let x = 0; x < this.x; x++) {
-      for (let y = 0; y < this.y; y++) {
-        data[y][x] = vec3.fromValues(toneMappingFunc(data[y][x][0]), toneMappingFunc(data[y][x][1]), toneMappingFunc(data[y][x][2]));
-      }
-    }
+    // const avePower = sumPower / (this.x * this.y);
+    // const toneMappingFuncExp = Math.log(0.5) / Math.log(avePower);
+    // function toneMappingFunc(x) { // 0.0 <= x <= 1.0
+    //   return Math.pow(x, toneMappingFuncExp);
+    // }
+    // for (let x = 0; x < this.x; x++) {
+    //   for (let y = 0; y < this.y; y++) {
+    //     data[y][x] = vec3.fromValues(toneMappingFunc(data[y][x][0]), toneMappingFunc(data[y][x][1]), toneMappingFunc(data[y][x][2]));
+    //   }
+    // }
     return data;
   }
 }

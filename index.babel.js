@@ -11,7 +11,7 @@ const rayTracer = new RayTrace(renderer.x, renderer.y);
 const redMaterial = new Material(vec3.fromValues(1, 0, 0), 1, 0, 0, 0);
 const blueMaterial = new Material(vec3.fromValues(0, 0, 1), 1, 0, 0, 0);
 const whiteMaterial = new Material(vec3.fromValues(1, 1, 1), 1, 0, 0, 0);
-const emmisiveMaterial = new Material(vec3.fromValues(1, 0.90, 0.5), 0, 0, 0, 1);
+const emmisiveMaterial = new Material(vec3.fromValues(1 * 30, 0.90 * 30, 0.5 * 30), 0, 0, 0, 1);
 // rayTracer.add(new CSphere(vec3.fromValues(0, 2, 0), 1, emmisiveMaterial));
 const objects = [
   {
@@ -83,7 +83,7 @@ objects.forEach((o) => {
   rayTracer.add(new o.type(...args));
 });
 
-const count = 3;
+const count = 10;
 let countRendered = 0;
 
 // render and show one by one
@@ -107,6 +107,8 @@ let countRendered = 0;
 // render();
 
 // render all and show one
+const startTime = new Date();
+
 for (let i = 0; i < count; i++) {
   console.log(i);
   rayTracer.run();
@@ -119,6 +121,12 @@ for (let x = 0; x < rayTracer.x; x++) {
   }
 }
 renderer.render();
+
+const endTime = new Date();
+
+console.log('start', startTime);
+console.log('end', endTime);
+console.log('elapse', (endTime - startTime) / 1000);
 
 // Download Button
 
