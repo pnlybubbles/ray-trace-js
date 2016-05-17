@@ -10,14 +10,17 @@ class CSphere extends CObject {
   }
 
   isAcross(ray) {
-    const ac = vec3.sub(vec3.create(), ray.o, this.pos);
-    const aclen = vec3.sqrLen(ac);
-    const vac = vec3.dot(ray.v, ac);
-    const d = Math.pow(vac, 2) - vec3.sqrLen(ray.v) * (aclen - Math.pow(this.r, 2));
+    const oc = vec3.sub(vec3.create(), ray.o, this.pos);
+    const oclen = vec3.sqrLen(oc);
+    const voc = vec3.dot(ray.v, oc);
+    const d = Math.pow(voc, 2) - oclen + Math.pow(this.r, 2);
     if (d < 0) {
       return null;
     }
-    const t = (-vac - Math.sqrt(d)) / aclen;
+    const t = -voc - Math.sqrt(d);
+    if (t <= 0) {
+      return null;
+    }
     const p = vec3.add(
       vec3.create(),
       ray.o,

@@ -83,7 +83,7 @@ objects.forEach((o) => {
   rayTracer.add(new o.type(...args));
 });
 
-const count = 50;
+const count = 3;
 let countRendered = 0;
 
 // render and show one by one

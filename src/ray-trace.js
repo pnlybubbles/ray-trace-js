@@ -75,9 +75,9 @@ class RayTrace {
         color = vec3.fromValues(0, 0, 0);
       }
       colors.diffuse = vec3.fromValues(
-        color[0] * interact.obj.mat.color[0] * vn * 0.5 * Math.PI,
-        color[1] * interact.obj.mat.color[1] * vn * 0.5 * Math.PI,
-        color[2] * interact.obj.mat.color[2] * vn * 0.5 * Math.PI);
+        color[0] * interact.obj.mat.color[0] * vn,
+        color[1] * interact.obj.mat.color[1] * vn,
+        color[2] * interact.obj.mat.color[2] * vn);
     } else {
       colors.diffuse = vec3.fromValues(0, 0, 0);
     }
